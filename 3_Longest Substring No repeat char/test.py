@@ -2,7 +2,7 @@ def lengthOfLongestSubstring(s):
     '''
     We have to find a maximal substring with only distinct digits.
     So We can use variable length array as a substring for answer.
-    Then we start to loop given string.
+    Then we start to loop through given string.
     If current value in this iteration is new to substring array,
     we can put this value into array.
     And update maximal length if current length of substring is greater than maximal length.

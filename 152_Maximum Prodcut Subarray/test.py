@@ -1,3 +1,12 @@
+'''
+Find the contiguous subarray within an array 
+(containing at least one number) which has the largest product.
+
+[2,3,-2,4]
+[2, 3] => 6
+'''
+
+
 def maxProduct(nums):
     '''
     NO extra memory version

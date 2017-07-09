@@ -1,9 +1,7 @@
 def maxProfit(prices):
-    if len(prices) == 0:
-        return 0
     import sys
-    min_price = sys.maxsize
-    max_profit = -1
+    min_price = sys.maxsize  # 9223372036854775807
+    max_profit = 0
     for i in prices:
         min_price = min(min_price, i)
         max_profit = max(max_profit, i - min_price)
