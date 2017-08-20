@@ -17,6 +17,6 @@ class Solution(object):
         i, j = 0, len(lst) - 1
         while i < j:
             lst[i], lst[j] = lst[j], lst[i]
-            i++
-            j++
+            i += 1
+            j -= 1
         return "".join(lst)

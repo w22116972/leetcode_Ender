@@ -8,7 +8,7 @@ def reverse_word(s):
     result = ''
     for w in word:
         result = result + w[::-1] + ' '
-    return result[:-1]
+    return result[:-1]  # eliminate the last whitespace
 
 
 def reverse_word1(s):

@@ -17,3 +17,7 @@ class Solution(object):
         :type root: TreeNode
         :rtype: bool
         """
+
+    
+    def isValidBST_brute_force(root):
+        

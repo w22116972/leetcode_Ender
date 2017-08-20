@@ -26,7 +26,7 @@ class Solution(object):
             return
         elif head.val > tree.val and tree.right is None:
             tree.right.val = head.val
-            return 
+            return
         elif head.val > tree.val and tree.right is not None:
             self.dfs(head, tree.right)
         elif head.val <= tree.val and tree.left is None:
