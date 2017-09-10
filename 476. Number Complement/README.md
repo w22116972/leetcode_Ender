@@ -1,4 +1,4 @@
-## Approach #1 [Accpeted]
+## Approach #1 Brute Force [Accpeted]
 
 **Intuition**
 
@@ -19,7 +19,7 @@
 
 * Space complexity : $$O()$$.
 ---
-## Approach #2  [Accepted]
+## Approach #2 Bit Manipulation  [Accepted]
 
 **Algorithm**
 

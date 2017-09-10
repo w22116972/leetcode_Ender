@@ -38,6 +38,12 @@ def single_number_list(nums):
                 test.remove(i)
         return test.pop()
 
+# inplace method
+def inplace(nums):
+    for i in range(len(nums)):
+        if i not in nums[i+1:]:
+            return nums[i]
+
 
 if __name__ == "__main__":
     assert single_number_list([1,1,2,3,3]) == 2
