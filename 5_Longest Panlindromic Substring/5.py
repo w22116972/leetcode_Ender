@@ -67,34 +67,33 @@ def expand_from_center(s):
 
 
 def expand_from_center_clean(s):
+    """
+    |center is single digit| = O(n) because there are |n| digits.
+    |center is double digits| = O(n-1) because (1,2) ~ (n-1,n) is |n-1|
+    Total center is |2n-1| = O(2n) = O(n)
+    T(Expand from center) = O(n/2) = O(n)
+    Total time complexity = O(n) * O(n) = O(n^2)
+    """
     start = 0
     end = 0
     for i in range(len(s)):
-        len_single_center = expand_single_clean(s, i, i)
-        len_double_center = expand_double_clean(s, i, i + 1) + 1
+        len_single_center = expand_from_center(s, i, i)
+        len_double_center = expand_from_center(s, i, i + 1)
         len_max = max(len_single_center, len_double_center)
         if len_max > end - start:
-            start = int(i - (len_max - 1) / 2)
-            end = int(i + len_max / 2)
-    print(start, end, len_max)
-    print(s[start:end + 1])
+            start = i - int((len_max - 1) / 2)
+            end = i + int(len_max / 2)
+    # print(start, end, len_max)
+    # print(s[start:end + 1])
     return s[start:end + 1]
 
 
-def expand_single_clean(s, left, right):
-    # i = left
-    # j = right
+def expand_from_center(s, left, right):
     while left >= 0 and right < len(s) and s[left] == s[right]:
         left -= 1
         right += 1
-    # print(right - left - 1)
     return right - left - 1
 
-
-def expand_double_clean(s, left, right):
-    while left >= 0 and right < len(s) and s[left] == s[right]:
-        left -= 1
-        right += 1
     
 
 
@@ -122,3 +121,4 @@ assert brute_force("cbbd") == "bb"
 
 # assert expand_from_center_clean("babad") == "bab" or "aba"
 assert expand_from_center_clean("cbbd") == "bb"
+print(expand_from_center_clean("abacdfgdcaba"))

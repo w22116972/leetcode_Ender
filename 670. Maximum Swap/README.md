@@ -1,29 +1,37 @@
 
 ## Summary: Greedy Algorithm
 
-We want to get the largest number, so if there is a less significant digit larger than the most significant digit, we have to switch them.
+We want to get the largest number, so if there is a less significant digit larger than the most significant digit, we have to swap them.
+
 If the most significant bit is already 9 which is largest, we check the next most significant bit.
 
 #### Although the given number is at most 8-bits, I still consider it as n-bits. 
 
 
-## Approach #1 Brute Force with String approach [Accpeted]
+## Approach #1 Brute Force with String approach [Accepted]
 
-**Intuition**
+**Brute Force Intuition**
 
+iterate digit from most significant to least significant, and swap it with lower digit to check whether result becomes bigger after swapping. 
 
+**String approach Intuition**
 
+The easy way to swap digits is to use array accessing, but digits can't be converted to array directly.
+
+Here we convert digits to string first, so when it is converted to array later, each digit is stored exactly in each element in array
 
 **Algorithm**
 
-1. convert `num` into list type
+1. convert `num` into list type in Python (like `array` in others)
+    - in order to swap digits easily
+    - because `string` can't be reassigned in Python
 2. copy `num` to `num_max`
 3. start `for` loop from most significant bit to least significant bit in `nums`
 4. second `for` loop finds whether other bit is good for exchanging
 5. (optional) check whether digit is greater than current digit
     - if it is not greater, then obviously it is impossible that swapped value becomes greater 
 6. swap digit
-7. convert list to int, so we can check which is bigger
+7. convert list to integer type, so we can compare which is bigger
 8. swap back
 9. after all, return `num_max`
 
@@ -44,6 +52,8 @@ class Solution(object):
         return int(''.join(num_max))
 ```
 
+`''.join(num_list)` is a way of convert list to string in Python
+
 **Complexity Analysis**
 
 * Time complexity : $$O(n^{3})$$.
@@ -52,7 +62,7 @@ class Solution(object):
 - `num_max = num_list[:]` is $$O(n)$$ because it copies a whole list
 - Outer `for` loop is $$O(n)$$ because it iterates through whole list
 - Inner `for` loop is $$O(n)$$ because $$O(n - i) = O(n)$$
-- `''.join(num_max)` is $$O(n)$$ because it joins the all numbers in list
+- `''.join(num_max)` is $$O(n)$$ because it joins all numbers in list
 
 The latter three complexities are nested, so they have to multiply together.
 
@@ -66,36 +76,45 @@ Overall time complexity is $$O(n) * O(n) * O(n) = O(n^{3})$$
 ---
 ## Approach #2 Brute Force with Integer approach  [Accepted]
 
+**Integer approach Intuition**
+
+Use integer division to create a array consisting of digits
+
+scan `num` from 
+- `max_digit_from_least`, `max_index_from_least`, `current_index` store temporal value during iteration
+- `swap_index 1,2` stores global 
+
 **Algorithm**
 
-
+1. 
+2. 
 
 **Python**
 
 ```python
 class Solution(object):
     def maximumSwap(self, num):
-        max_digit = 0
-        max_index = -1
+        max_digit_from_least = 0
+        max_index_from_least = -1
         current_index = 0
         swap_index1 = 0
         swap_index2 = 0
-        num_from_least_list = []
+        num_from_least = []
         while num > 0:
             digit = num % 10
-            num_from_least_list.append(digit)
-            if max_digit > digit:
+            num_from_least.append(digit)
+            if max_digit_from_least > digit:
                 swap_index1 = current_index
-                swap_index2 = max_index
-            elif digit > max_digit:
-                max_digit = digit
-                max_index = current_index
+                swap_index2 = max_index_from_least
+            elif digit > max_digit_from_least:
+                max_digit_from_least = digit
+                max_index_from_least = current_index
             num = int(num / 10)
             current_index += 1
-        num_from_least_list[swap_index1], num_from_least_list[swap_index2] = num_from_least_list[swap_index2], num_from_least_list[swap_index1]
+        num_from_least[swap_index1], num_from_least[swap_index2] = num_from_least[swap_index2], num_from_least[swap_index1]
         total = 0
-        for i in range(len(num_from_least_list)):
-            total += (int)(num_from_least_list[i] * 10**i)
+        for i in range(len(num_from_least)):
+            total += (int)(num_from_least[i] * 10**i)
         return total
 ```
 
@@ -132,7 +151,12 @@ class Solution(object):
 
 因為要交換出最大值，從greedy的角度來看，先把最高位數換成最大值，如果最大位數已經是該數列最大了，再從第二大位數開始
 
-從右邊開始找出`目前為止最大值的索引`，
+求出從最低位數開始的`目前最大值的索引`
+
+假設從最高位數開始,
+- 如果目前的索引和dp的索引不同，代表其他地方有更大的值
+- 如果目前的索引和dp的索引相同，代表右邊已經沒有其他更大的值
+
 
 
 Start from least significant bit, 
@@ -184,11 +208,11 @@ class Solution(object):
     def maximumSwap(self, num):
         num_str = list(str(num))
         dp = [-1]*len(num_str)
-        current_max_index = len(num_str)-1
+        current_max_index_from_least = len(num_str)-1
         for i in range(len(num_str)-1, -1, -1):
-            if num_str[i] > num_str[current_max_index]:
-                current_max_index = i
-            dp[i] = current_max_index
+            if num_str[i] > num_str[current_max_index_from_least]:
+                current_max_index_from_least = i
+            dp[i] = current_max_index_from_least
         for i in range(len(num_str)-1):
             if num_str[dp[i]] != num_str[i]:
                 num_str[i], num_str[dp[i]] = num_str[dp[i]], num_str[i]
